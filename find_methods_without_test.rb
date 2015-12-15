@@ -5,18 +5,27 @@ class MethodFinder
   RUBY_TEST_PATH = "test/ruby"
 
   def initialize
+    @methods_by_file_name = methods_by_file_name
   end
 
   def without_test_methods
+    @methods_by_file_name
+  end
+
+  def methods_by_instance
+
+  end
+
+  def methods_by_file_name
     file_array = "test_array.rb"
     file = File.join(RUBY_DIR, RUBY_TEST_PATH, file_array)
     methods = []
     File.open(file, "r") do |f|
       f.each_line do |line|
-        methods << $1 if line =~ /\A\s*(def\s+.+)\s+/
+        methods << $1 if line =~ /\A\s*def\s+(.+)\s+/
       end
     end
-    methods
+    target_test_methods = methods.map{ |x| x =~ /^test_(.+)\z/ ? $1 : nil }.compact.sort
   end
 end
 
