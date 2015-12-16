@@ -7,9 +7,12 @@ class MethodFinder
 
   def initialize(class_name: nil)
     @class_name = class_name
+    @class_instance = eval("#{class_name}.new")
+    @class = @class_instance.class
   end
 
   def methods_by_instance
+    @class.instance_methods(false)
   end
 
   def methods_by_file_name()
@@ -25,10 +28,11 @@ class MethodFinder
   end
 
   def run
-    @methods_by_file_name = methods_by_file_name
+    ap @methods_by_file_name = methods_by_file_name
+    ap @methods_by_instance = methods_by_instance
   end
 end
 
-ap MethodFinder.new(class_name: "Array").run
+MethodFinder.new(class_name: "Array").run
 # TODO Array.new.instance_methods(false)と比較
 # TODO 全該当ファイル
