@@ -1,4 +1,5 @@
 require "awesome_print"
+require "pry"
 
 class MethodFinder
   RUBY_DIR = "/Users/igarashi/github_repos/github.com/ruby/ruby"
@@ -28,11 +29,14 @@ class MethodFinder
   end
 
   def run
-    ap @methods_by_file_name = methods_by_file_name
-    ap @methods_by_instance = methods_by_instance
+    @methods_by_file_name = methods_by_file_name
+    @methods_by_instance = methods_by_instance.map(&:to_s)
+    ap @methods_by_instance - @methods_by_file_name
   end
 end
 
 MethodFinder.new(class_name: "Array").run
-# TODO Array.new.instance_methods(false)と比較
+# TODO !や?がつくメソッド名
+# TODO aliasなメソッド名
+# →methods_by_instance の各要素で調べて、testケース名一致、含まれるをチェックかな？
 # TODO 全該当ファイル
