@@ -31,11 +31,31 @@ class MethodFinder
   def run
     @methods_by_file_name = methods_by_file_name
     @methods_by_instance = methods_by_instance.map(&:to_s)
-    ap @methods_by_instance - @methods_by_file_name
+    @testless_methods = []
+    @methods_by_instance.each do |m|
+      @testless_methods << m unless test_exists?(m)
+    end
+    @testless_methods
   end
+
+  private
+
+  def test_exists?(testee)
+    @methods_by_file_name.each do |m|
+      return true if m == testee
+      begin
+        return true if m =~ /#{testee}/
+      rescue RegexpError => e
+        p e
+        return false
+      end
+    end
+    false
+  end
+
 end
 
-MethodFinder.new(class_name: "Array").run
+ap MethodFinder.new(class_name: "Array").run
 # TODO !や?がつくメソッド名
 # TODO aliasなメソッド名
 # →methods_by_instance の各要素で調べて、testケース名一致、含まれるをチェックかな？
