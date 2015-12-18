@@ -58,5 +58,7 @@ end
 ap MethodFinder.new(class_name: "Array").run
 # TODO !や?がつくメソッド名
 # TODO aliasなメソッド名
-# →methods_by_instance の各要素で調べて、testケース名一致、含まれるをチェックかな？
 # TODO 全該当ファイル
+
+# Array#shuffle! がないかも？でもどうやってテストしよう？
+
