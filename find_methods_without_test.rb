@@ -60,5 +60,3 @@ ap MethodFinder.new(class_name: "Array").run
 # TODO aliasなメソッド名
 # TODO 全該当ファイル
 
-# Array#shuffle! がないかも？でもどうやってテストしよう？
-
