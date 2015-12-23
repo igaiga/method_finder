@@ -1,5 +1,6 @@
-require "awesome_print"
-require "pry"
+require "pp"
+# require "awesome_print"
+# require "pry"
 
 class MethodFinder
   RUBY_DIR = "/Users/igarashi/github_repos/github.com/ruby/ruby"
@@ -55,8 +56,7 @@ class MethodFinder
 
 end
 
-ap MethodFinder.new(class_name: "Array").run
-# TODO !や?がつくメソッド名
+pp MethodFinder.new(class_name: "String").run
 # TODO aliasなメソッド名
 # TODO 全該当ファイル
 
