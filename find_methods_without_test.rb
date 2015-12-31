@@ -56,7 +56,7 @@ class MethodFinder
 
 end
 
-pp MethodFinder.new(class_name: "String").run
+pp MethodFinder.new(class_name: "String").run.sort
 # TODO aliasなメソッド名
 # TODO 全該当ファイル
 
