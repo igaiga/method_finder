@@ -18,12 +18,14 @@ class MethodFinder
   end
 
   def methods_by_file_name()
-    file_array = "test_#{@class_name.downcase}.rb"
-    file = File.join(RUBY_DIR, RUBY_TEST_PATH, file_array)
+    file_array = ["test_#{@class_name.downcase}.rb"]
     methods = []
-    File.open(file, "r") do |f|
-      f.each_line do |line|
-        methods << $1 if line =~ /\A\s*def\s+(.+)\s+/
+    file_array.each do |file_name|
+      file = File.join(RUBY_DIR, RUBY_TEST_PATH, file_name)
+      File.open(file, "r") do |f|
+        f.each_line do |line|
+          methods << $1 if line =~ /\A\s*def\s+(.+)\s+/
+        end
       end
     end
     target_test_methods = methods.map{ |x| x =~ /^test_(.+)\z/ ? $1 : nil }.compact.sort
